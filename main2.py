@@ -12,7 +12,10 @@ driver = webdriver.Chrome(service=service)
 # Presmerovanie na stránku
 driver.get("https://google.com")
 
-# Kliknutie na uvodne google okno
+# Pocka kym najde element a odklikne
+WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.ID, "L2AGLb"))
+)
 input_element = driver.find_element(By.ID, "L2AGLb")
 input_element.click()
 
@@ -20,6 +23,12 @@ input_element.click()
 input_element = driver.find_element(By.CLASS_NAME, "gLFyf")
 input_element.send_keys("lukas lechovic" + Keys.ENTER)
 
+# Pocka kym sa vyhladá text a klikne
+WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Lukáš Lechovič KNXKO"))
+)
+link = driver.find_element(By.PARTIAL_LINK_TEXT, "Lukáš Lechovič KNXKO")
+link.click()
 
 time.sleep(7)
 driver.quit()
